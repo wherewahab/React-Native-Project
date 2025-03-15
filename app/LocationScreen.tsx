@@ -4,15 +4,19 @@ import { Ionicons } from "@expo/vector-icons";
 import MapView from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomBar from "../components/BottomBar";
-
+import SidebarMenu from "../components/sidebarMenu";
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 const LocationScreen = () => {
     const [selectedLocation, setSelectedLocation] = useState("");
+    const router = useRouter();
     return (
         
         <SafeAreaView style={styles.container}>
             {/* Header with Sidebar Menu and Title */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.menuButton}>
+                <TouchableOpacity style={styles.menuButton}  >
                     <Ionicons name="menu" size={20} color="black" />
                 </TouchableOpacity>
                 <Text style={styles.title}>UmmaBee</Text>
@@ -71,12 +75,12 @@ const LocationScreen = () => {
             {/* Three Divs in a Row with Image and Text */}
             <View style={styles.rowContainer}>
                 {/* First Item */}
-                <View style={styles.card}>
+                <View style={styles.card} >
                     <Image
                         source={require("../assets/image1.png")}
                         style={styles.image}
                     />
-                    <Text style={styles.cardText}>Corn Cream Soup</Text>
+                    <Text style={styles.cardText} onPress={() => router.push("/pastiDiskon")}>Corn Cream Soup</Text>
                     <View style={styles.locationRow}>
                         <Ionicons name="location-outline" size={12} color="blue" />
                         <Text style={styles.locText}>New York, USA</Text>
@@ -180,6 +184,7 @@ const LocationScreen = () => {
                     </View>
                 </View>
             </View>
+            
             <BottomBar />
         </SafeAreaView>
     );

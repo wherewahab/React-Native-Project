@@ -7,19 +7,19 @@ const BottomBar = () => {
     <View style={styles.container}>
       {/* Home Icon */}
       <TouchableOpacity style={styles.button}>
-        <Ionicons name="home-outline" size={24} color="orange" />
+        <Ionicons name="home-outline" size={20} color="orange" />
         <Text style={styles.text}>Home</Text>
       </TouchableOpacity>
 
       {/* Add Listing Icon */}
       <TouchableOpacity style={styles.button}>
-        <Ionicons name="add-circle-outline" size={30} color="black" />
+        <Ionicons name="add-circle-outline" size={20} color="black" />
         <Text style={styles.text}>Add Listing</Text>
       </TouchableOpacity>
 
       {/* Explore Icon */}
       <TouchableOpacity style={styles.button}>
-        <Ionicons name="compass-outline" size={24} color="black" />
+        <Ionicons name="compass-outline" size={20} color="black" />
         <Text style={styles.text}>Explore</Text>
       </TouchableOpacity>
     </View>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    height: 60,
+    height: 40,
     backgroundColor: "#fff",
     borderTopWidth: 1,
     borderColor: "#ddd",
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: 12,
+    fontSize: 7,
     color: "black",
   },
 });

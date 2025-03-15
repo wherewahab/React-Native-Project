@@ -6,6 +6,7 @@ export default function Layout() {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="LocationScreen" options={{ headerShown: false }} />
       <Stack.Screen name="categorySelection" options={{ headerShown: false }} />
+      <Stack.Screen name="pastiDiskon" options={{ headerShown: false }} />
     </Stack>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
-const HomeScreen = () => {
+const HomeScreen = () =>{
   const router = useRouter(); // For navigation
 
   return (
@@ -18,7 +18,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -57,3 +57,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
+export default HomeScreen;
