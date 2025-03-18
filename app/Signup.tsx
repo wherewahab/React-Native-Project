@@ -18,7 +18,6 @@ const Signup = () => {
     return (
         <>
             {/* Hide the default header */}
-            <Stack.Screen options={{ headerShown: false }} />
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
                 <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled" >
                     <View style={styles.container}>

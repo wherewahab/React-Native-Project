@@ -4,31 +4,35 @@ import { Ionicons } from "@expo/vector-icons";
 import MapView from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomBar from "../components/BottomBar";
-import SidebarMenu from "../components/sidebarMenu";
-import { useNavigation } from "@react-navigation/native";
-import { DrawerActions } from "@react-navigation/native";
+import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { useRouter } from "expo-router";
+import FilterModal from "../components/FilterModal";
 const LocationScreen = () => {
     const [selectedLocation, setSelectedLocation] = useState("");
     const router = useRouter();
+    const navigation = useNavigation();
+    const [isModalVisible, setModalVisible] = useState(false);
     return (
-        
+        <View style={{ flex: 1 }}>
+
+            
         <SafeAreaView style={styles.container}>
             {/* Header with Sidebar Menu and Title */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.menuButton}  >
-                    <Ionicons name="menu" size={20} color="black" />
+                <TouchableOpacity 
+                    style={styles.menuButton} 
+                >
+                    <Ionicons name="menu" size={20} color="black" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
                 </TouchableOpacity>
                 <Text style={styles.title}>UmmaBee</Text>
-
-                {/* <Text style={styles.subtitle}>Be counted</Text> */}
             </View>
 
             {/* Filter Buttons Row */}
             <View style={styles.filterRow}>
-                <TouchableOpacity style={styles.iconButton}>
+                <TouchableOpacity style={styles.iconButton} onPress={() => setModalVisible(true)} >
                     <Ionicons name="grid" size={15} color="black" />
                 </TouchableOpacity>
+                <FilterModal visible={isModalVisible} onClose={() => setModalVisible(false)} />
                 <TouchableOpacity style={styles.filterButton}>
                     <Text style={styles.filterText}>Category</Text>
                     <Ionicons name="chevron-down" size={16} color="black" />
@@ -128,8 +132,9 @@ const LocationScreen = () => {
                     </View>
                 </View>
             </View>
-             {/* Second row Three Divs with Image and Text */}
-             <View style={styles.rowContainer}>
+            
+            {/* Second row Three Divs with Image and Text */}
+            <View style={styles.rowContainer}>
                 {/* First Item */}
                 <View style={styles.card}>
                     <Image
@@ -187,6 +192,7 @@ const LocationScreen = () => {
             
             <BottomBar />
         </SafeAreaView>
+        </View>
     );
 };
 
@@ -248,15 +254,14 @@ const styles = StyleSheet.create({
     },
     locationRow: {
         flexDirection: "row",
-        alignItems: "center", // Align icon & text properly
-        marginTop: 4, // Adjust spacing
+        alignItems: "center",
+        marginTop: 4,
     },
     locText: {
         fontSize: 5,
         color: "blue",
-        marginLeft: 4, // Space between icon and text
+        marginLeft: 4,
     },
-
     placeholderText: {
         color: "#888",
     },
@@ -264,14 +269,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         overflow: "hidden",
         marginHorizontal: 20,
-        marginTop: 5,  // Reduce spacing
-        alignSelf: "stretch", // Ensures it takes the width of parent
+        marginTop: 5,
+        alignSelf: "stretch",
     },
     map: {
         width: "100%",
-        height: 100, // Adjust to the desired height
+        height: 100,
     },
-
     filterRow: {
         flexDirection: "row",
         alignItems: "center",
@@ -315,32 +319,29 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     card: {
-    alignItems: "center",
-    backgroundColor: "#f9f9f9",
-    paddingHorizontal: 10, // Keep only horizontal padding
-    paddingBottom: 10, // Padding at the bottom only
-    borderRadius: 10,
-    width: "30%",
-    shadowColor: "#000",
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
-    minHeight: 100, // Ensure all cards have the same height
-    flexGrow: 1, // Allows cards to stretch equally
-    marginHorizontal: 5, // Adds spacing between the cards
-    overflow: "hidden", // Ensures content stays inside the card
-},
-
-image: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
-    marginBottom: 0, // No extra bottom space
-    alignSelf: "center", // Keep image centered inside the card
-},
-
-    
+        alignItems: "center",
+        backgroundColor: "#f9f9f9",
+        paddingHorizontal: 10,
+        paddingBottom: 10,
+        borderRadius: 10,
+        width: "30%",
+        shadowColor: "#000",
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 2,
+        minHeight: 100,
+        flexGrow: 1,
+        marginHorizontal: 5,
+        overflow: "hidden",
+    },
+    image: {
+        width: 80,
+        height: 80,
+        borderRadius: 10,
+        marginBottom: 0,
+        alignSelf: "center",
+    },
     cardText: {
         fontSize: 5,
         fontWeight: "bold",
@@ -348,15 +349,14 @@ image: {
     },
     phoneRow: {
         flexDirection: "row",
-        alignItems: "center", // Align icon & text properly
-        marginTop: 4, // Adjust spacing
+        alignItems: "center",
+        marginTop: 4,
     },
     phoneText: {
         fontSize: 3,
         color: "#C2C2C2",
-        marginLeft: 4, // Space between icon and text
+        marginLeft: 4,
     },
-
 });
 
 export default LocationScreen;

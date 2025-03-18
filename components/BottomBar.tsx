@@ -1,8 +1,10 @@
 import React from "react";
+import  { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import AIAssistantModal from "./AIAssistantModal";
 const BottomBar = () => {
+   const [isModalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       {/* Home Icon */}
@@ -18,10 +20,11 @@ const BottomBar = () => {
       </TouchableOpacity>
 
       {/* Explore Icon */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => setModalVisible(true)}>
         <Ionicons name="compass-outline" size={20} color="black" />
         <Text style={styles.text}>Explore</Text>
       </TouchableOpacity>
+      <AIAssistantModal visible={isModalVisible} onClose={() => setModalVisible(false)} />
     </View>
   );
 };
