@@ -9,14 +9,18 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.ReactNativeProject"
+      "package": "com.anonymous.ReactNativeProject",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +41,17 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e07d9363-57af-4ab6-bc2d-2e775a04b5fc"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e07d9363-57af-4ab6-bc2d-2e775a04b5fc"
     }
   }
 }

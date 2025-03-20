@@ -68,13 +68,13 @@ const PastiDiskon = () => {
                 {/* Suggested Tags */}
                 <View style={styles.tagsContainer}>
                     <TouchableOpacity style={styles.tagButton}>
-                        <Text style={styles.tagText}>Suggested Tag</Text>
-                        <MaterialIcons name="cancel" size={10} color="black" />
+                        <Text style={styles.tagText}>Suggested Tag </Text>
+                        <MaterialIcons name="cancel" size={10} color="#7A7A7A" />
 
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.tagButton}>
-                        <Text style={styles.tagText}>Suggested Tag</Text>
-                        <MaterialIcons name="cancel" size={10} color="black" />
+                        <Text style={styles.tagText}>Suggested Tag </Text>
+                        <MaterialIcons name="cancel" size={10} color="#7A7A7A" />
                     </TouchableOpacity>
                 </View>
                 {/* Three Divs in a Row with Image and Text */}
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
 
     },
     tagText: {
-        color: "black",
+        color: "#3E4958",
         marginLeft: 0,
         fontSize: 5,
     },

@@ -1,64 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, Switch, Animated, Dimensions, TouchableOpacity } from "react-native";
-import { GestureHandlerRootView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-
-
+import React, { useState } from "react";
+import { View, Text, Image, Switch, Animated } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 
-type SidebarMenuProps = {
-  isVisible: boolean;
-  onClose: () => void;
-};
-
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose }) => {
+const SidebarMenu = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const slideAnim = useState(new Animated.Value(-300))[0]; // Initial position off-screen
-  const screenHeight = Dimensions.get('window').height;
-  
-  useEffect(() => {
+  const slideAnim = useState(new Animated.Value(-250))[0]; // Initial position off-screen
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
     Animated.timing(slideAnim, {
-      toValue: isVisible ? 0 : -300, // Slide in/out
+      toValue: isMenuOpen ? -250 : 0, // Slide in/out
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }, [isVisible]);
+  };
 
   return (
-    <>
-      {/* Backdrop when menu is open */}
-      {isVisible && (
-        <TouchableWithoutFeedback onPress={onClose}>
-          <View
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0,0,0,0.5)",
-              zIndex: 1,
-            }}
-          />
-        </TouchableWithoutFeedback>
-      )}
-      
+    <View style={{ flex: 1 }}>
+      {/* Menu Button */}
+      <TouchableOpacity
+        onPress={toggleMenu}
+        style={{ padding: 10, marginTop: 40, marginLeft: 20 }}
+      >
+        <Ionicons name="menu" size={30} color="black" />
+      </TouchableOpacity>
+
       {/* Sidebar */}
       <Animated.View
         style={{
           position: "absolute",
           top: 0,
           left: 0,
-          width: 280,
-          height: screenHeight,
+          right: 0,
+          height: 250,
           backgroundColor: "#fff",
           elevation: 10,
           padding: 20,
-          zIndex: 2,
-          transform: [{ translateX: slideAnim }],
+          transform: [{ translateY: slideAnim }],
         }}
       >
         {/* Profile Section */}
-        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20, marginTop: 40 }}>
+        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
           <Image
             source={{ uri: "https://via.placeholder.com/50" }}
             style={{ width: 50, height: 50, borderRadius: 25 }}
@@ -85,15 +69,8 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose }) => {
           { label: "Wishlist", icon: "favorite-border" },
           { label: "Settings", icon: "settings" },
         ].map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}
-          >
-            <MaterialIcons
-              name={item.icon as keyof typeof MaterialIcons.glyphMap}
-              size={20}
-              color="black"
-            />
+          <TouchableOpacity key={index} style={{ flexDirection: "row", alignItems: "center", marginBottom: 15 }}>
+            <MaterialIcons name={item.icon as keyof typeof MaterialIcons.glyphMap} size={20} color="black" />
             <Text style={{ fontSize: 16, marginLeft: 10 }}>{item.label}</Text>
           </TouchableOpacity>
         ))}
@@ -104,7 +81,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isVisible, onClose }) => {
           <Text style={{ fontSize: 16, color: "red", marginLeft: 10 }}>Logout</Text>
         </TouchableOpacity>
       </Animated.View>
-    </>
+    </View>
   );
 };
 

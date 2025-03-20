@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
+import AIPosting from "@/app/Aiposting";
+import { useRouter } from "expo-router";
 const AIAssistantModal = ({ visible, onClose }) => {
+  const router = useRouter();
   return (
     <Modal
       animationType="slide"
@@ -37,9 +39,17 @@ const AIAssistantModal = ({ visible, onClose }) => {
     <Ionicons name="mic" size={24} color="orange" style={styles.micIcon} />
     <Text style={styles.voiceTitle}>Post by Voice</Text>
     <Text style={styles.voiceSubText}>Record your message for quick recording</Text>
-    <TouchableOpacity style={styles.recordButton}>
-      <Text style={styles.recordButtonText}>Record</Text>
-    </TouchableOpacity>
+    <TouchableOpacity
+  style={styles.recordButton}
+  onPress={() => {
+    onClose(); // Close modal first
+    setTimeout(() => {
+      router.push("/Aiposting"); // Navigate after modal closes
+    }, 200); // Delay to allow modal to close smoothly
+  }}
+>
+  <Text style={styles.recordButtonText}>Record</Text>
+</TouchableOpacity>
   </View>
 
   {/* Second Box */}
@@ -47,9 +57,17 @@ const AIAssistantModal = ({ visible, onClose }) => {
     <Ionicons name="pencil" size={24} color="orange" style={styles.micIcon} />
     <Text style={styles.voiceTitle}>Write a post</Text>
     <Text style={styles.voiceSubText}>Manual add and type your post</Text>
-    <TouchableOpacity style={styles.recordButton}>
-      <Text style={styles.recordButtonText}>Create</Text>
-    </TouchableOpacity>
+    <TouchableOpacity
+  style={styles.recordButton}
+  onPress={() => {
+    onClose(); // Close modal first
+    setTimeout(() => {
+      router.push("/Aiposting"); // Navigate after modal closes
+    }, 200); // Delay to allow modal to close smoothly
+  }}
+>
+  <Text style={styles.recordButtonText}>Create</Text>
+</TouchableOpacity>
   </View>
 </View>
       </View>
