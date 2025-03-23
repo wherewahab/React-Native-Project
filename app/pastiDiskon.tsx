@@ -1,381 +1,377 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { useRouter } from "expo-router";
-import { AntDesign } from "@expo/vector-icons"; // For back arrow
 import { MaterialIcons } from "@expo/vector-icons"; // For tag icons
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native";
 import BottomBar from "../components/BottomBar";
-import { ScrollView } from "react-native";
+import { moderateScale, verticalScale } from "react-native-size-matters";
+
+const { width, height } = Dimensions.get("window");
+
 const PastiDiskon = () => {
-    const router = useRouter();
+  const router = useRouter();
 
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-        <ScrollView 
-            style={{ flex: 1 }} 
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false} 
-            keyboardShouldPersistTaps="handled"
-        >
-            <View style={styles.container}>
-                {/* Header */}
-                <View style={styles.header}>
-                    <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-                        <Ionicons name="arrow-back" size={19} color="black" />
-                    </TouchableOpacity>
-                    <Text style={styles.headerText}>Pasti Diskon</Text>
-                </View>
+  // Function to calculate dynamic font size based on screen height
+  const getDynamicFontSize = (baseSize) => {
+    const scaleFactor = height / 800; // 800 is a reference screen height
+    return moderateScale(baseSize * scaleFactor);
+  };
 
-                {/* Image */}
-                <Image source={require("../assets/image7.png")} style={styles.image} />
+  // Function to calculate dynamic padding/margin based on screen height
+  const getDynamicSpacing = (baseSpacing) => {
+    const scaleFactor = height / 800; // 800 is a reference screen height
+    return verticalScale(baseSpacing * scaleFactor);
+  };
 
-                {/* Phone & Price */}
-                <View style={styles.phoneRow}>
-                    {/* Left Side - Phone, Pasti Diskon, and Button */}
-                    <View style={styles.leftContainer}>
-                        <View style={styles.phoneContainer}>
-                            <Ionicons name="call-outline" size={12} color="#C2C2C2" />
-                            <Text style={styles.phoneText}>(021) 738 82737</Text>
-                        </View>
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      {/* Fixed Header */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={getDynamicFontSize(20)} color="black" />
+        </TouchableOpacity>
+        <Text style={[styles.headerText, { fontSize: getDynamicFontSize(16) }]}>
+          Pasti Diskon
+        </Text>
+      </View>
 
-                        <View style={styles.discountRow}>
-                            <Text style={styles.discountText}>Pasti Diskon</Text>
-                            <TouchableOpacity style={styles.discountButton}>
-                                <Text style={styles.buttonText}>Luxury car</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.locationRow}>
-                            <Ionicons name="location-outline" size={12} color="blue" />
-                            <Text style={styles.locText}>New York, USA</Text>
-                        </View>
-                    </View>
+      {/* Scrollable Content */}
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        {/* Main Container with Padding */}
+        <View style={styles.contentContainer}>
+          {/* Image */}
+          <Image
+            source={require("../assets/image7.png")}
+            style={[styles.image, { height: getDynamicSpacing(150) }]}
+          />
 
-                    {/* Right Side - Price */}
-                    <View style={styles.priceContainer}>
-                        <Text style={styles.priceText}>Price</Text>
-                        <Text style={styles.priceAmount}>$120</Text>
-                    </View>
-
-                </View>
-
-                {/* Description */}
-                <Text style={styles.descriptionTitle}>Description</Text>
-                <Text style={styles.descriptionText}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy Read More..
+          {/* Phone & Price */}
+          <View style={styles.phoneRow}>
+            {/* Left Side - Phone, Pasti Diskon, and Button */}
+            <View style={styles.leftContainer}>
+              <View style={styles.phoneContainer}>
+                <Ionicons name="call-outline" size={getDynamicFontSize(12)} color="#C2C2C2" />
+                <Text style={[styles.phoneText, { fontSize: getDynamicFontSize(10) }]}>
+                  (021) 738 82737
                 </Text>
+              </View>
 
-                {/* Suggested Tags */}
-                <View style={styles.tagsContainer}>
-                    <TouchableOpacity style={styles.tagButton}>
-                        <Text style={styles.tagText}>Suggested Tag </Text>
-                        <MaterialIcons name="cancel" size={10} color="#7A7A7A" />
-
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.tagButton}>
-                        <Text style={styles.tagText}>Suggested Tag </Text>
-                        <MaterialIcons name="cancel" size={10} color="#7A7A7A" />
-                    </TouchableOpacity>
-                </View>
-                {/* Three Divs in a Row with Image and Text */}
-                <View style={styles.rowContainer}>
-                    {/* First Item */}
-                    <View style={styles.card} >
-                        <Image
-                            source={require("../assets/image9.png")}
-                            style={styles.image1}
-                        />
-                        <Text style={styles.cardText}>Corn Cream Soup</Text>
-
-                        <View style={styles.phoneRow1}>
-                            <Ionicons name="call-outline" size={7} color="#C2C2C2" />
-                            <Text style={styles.phoneText}>(021) 738 82737</Text>
-                        </View>
-                        {/* <Text style={styles.cardText1}>$10.00</Text> */}
-
-                        <View style={styles.priceRow}>
-                            <Text style={styles.cardText1}>$10.00</Text>
-                            <TouchableOpacity style={styles.buyButton}>
-                                <Text style={styles.buttonText1}>View</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-                    <View style={styles.card} >
-                        <Image
-                            source={require("../assets/image9.png")}
-                            style={styles.image1}
-                        />
-                        <Text style={styles.cardText}>Corn Cream Soup</Text>
-
-                        <View style={styles.phoneRow1}>
-                            <Ionicons name="call-outline" size={7} color="#C2C2C2" />
-                            <Text style={styles.phoneText}>(021) 738 82737</Text>
-                        </View>
-                        {/* <Text style={styles.cardText1}>$10.00</Text> */}
-
-                        <View style={styles.priceRow}>
-                            <Text style={styles.cardText1}>$10.00</Text>
-                            <TouchableOpacity style={styles.buyButton} >
-                                <Text style={styles.buttonText1}>View</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-
-
-                </View>
+              <View style={styles.discountRow}>
+                <Text style={[styles.discountText, { fontSize: getDynamicFontSize(12) }]}>
+                  Pasti Diskon
+                </Text>
+                <TouchableOpacity style={styles.discountButton}>
+                  <Text style={[styles.buttonText, { fontSize: getDynamicFontSize(10) }]}>
+                    Luxury car
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.locationRow}>
+                <Ionicons name="location-outline" size={getDynamicFontSize(12)} color="blue" />
+                <Text style={[styles.locText, { fontSize: getDynamicFontSize(10) }]}>
+                  New York, USA
+                </Text>
+              </View>
             </View>
-            </ScrollView>
-            <BottomBar />
-        </SafeAreaView>
-    );
+
+            {/* Right Side - Price */}
+            <View style={styles.priceContainer}>
+              <Text style={[styles.priceText, { fontSize: getDynamicFontSize(12) }]}>
+                Price
+              </Text>
+              <Text style={[styles.priceAmount, { fontSize: getDynamicFontSize(14) }]}>
+                $120
+              </Text>
+            </View>
+          </View>
+
+          {/* Description */}
+          <Text style={[styles.descriptionTitle, { fontSize: getDynamicFontSize(12) }]}>
+            Description
+          </Text>
+          <Text style={[styles.descriptionText, { fontSize: getDynamicFontSize(10) }]}>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+            been the industry's standard dummy Read More..
+          </Text>
+
+          {/* Suggested Tags */}
+          <View style={styles.tagsContainer}>
+            <TouchableOpacity style={styles.tagButton}>
+              <Text style={[styles.tagText, { fontSize: getDynamicFontSize(10) }]}>
+                Suggested Tag
+              </Text>
+              <MaterialIcons name="cancel" size={getDynamicFontSize(10)} color="#7A7A7A" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.tagButton}>
+              <Text style={[styles.tagText, { fontSize: getDynamicFontSize(10) }]}>
+                Suggested Tag
+              </Text>
+              <MaterialIcons name="cancel" size={getDynamicFontSize(10)} color="#7A7A7A" />
+            </TouchableOpacity>
+          </View>
+
+          {/* Two Cards in a Row */}
+          <View style={styles.rowContainer}>
+            {/* First Card */}
+            <View style={styles.card}>
+              <Image
+                source={require("../assets/image9.png")}
+                style={[styles.image1, { height: getDynamicSpacing(80) }]}
+              />
+              <Text style={[styles.cardText, { fontSize: getDynamicFontSize(10) }]}>
+                Corn Cream Soup
+              </Text>
+
+              <View style={styles.phoneRow1}>
+                <Ionicons name="call-outline" size={getDynamicFontSize(7)} color="#C2C2C2" />
+                <Text style={[styles.phoneText, { fontSize: getDynamicFontSize(8) }]}>
+                  (021) 738 82737
+                </Text>
+              </View>
+
+              <View style={styles.priceRow}>
+                <Text style={[styles.cardText1, { fontSize: getDynamicFontSize(10) }]}>
+                  $10.00
+                </Text>
+                <TouchableOpacity style={styles.buyButton}>
+                  <Text style={[styles.buttonText1, { fontSize: getDynamicFontSize(10) }]}>
+                    View
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Second Card */}
+            <View style={styles.card}>
+              <Image
+                source={require("../assets/image9.png")}
+                style={[styles.image1, { height: getDynamicSpacing(80) }]}
+              />
+              <Text style={[styles.cardText, { fontSize: getDynamicFontSize(10) }]}>
+                Corn Cream Soup
+              </Text>
+
+              <View style={styles.phoneRow1}>
+                <Ionicons name="call-outline" size={getDynamicFontSize(7)} color="#C2C2C2" />
+                <Text style={[styles.phoneText, { fontSize: getDynamicFontSize(8) }]}>
+                  (021) 738 82737
+                </Text>
+              </View>
+
+              <View style={styles.priceRow}>
+                <Text style={[styles.cardText1, { fontSize: getDynamicFontSize(10) }]}>
+                  $10.00
+                </Text>
+                <TouchableOpacity style={styles.buyButton}>
+                  <Text style={[styles.buttonText1, { fontSize: getDynamicFontSize(10) }]}>
+                    View
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+
+      {/* Bottom Bar */}
+      <BottomBar />
+    </SafeAreaView>
+  );
 };
 
-export default PastiDiskon;
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white",
-        paddingTop: 50, // Ensures space for header (adjust if needed)
-        paddingHorizontal: 10, // Keeps content aligned
-        
-    },
-    scrollContent: {
-        paddingBottom: 100, // Prevents overlap with BottomBar
-    },
-    header: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        width: "100%",
-        height: 40, // Define height to avoid overlap
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center", // Centers the header text
-        backgroundColor: "white",
-        elevation: 3, // Shadow for Android
-        shadowColor: "white",
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        zIndex: 100, // Ensures it's above other content
-    },
-
-    rowContainer: {
-        flexDirection: "row",
-         justifyContent: "space-between", // Aligns items to the left
-        alignItems: "center",
-        marginHorizontal: 0, // No extra horizontal margin
-        marginLeft: 0, // Ensure it starts from the left
-        paddingLeft: 0, // Remove extra padding
-        marginTop: 15,
-        width: "100%", // Take full width
-        backgroundColor: "white", // Test background to confirm width
-    },
-    
-    
-    card: {
-        alignItems: "flex-start",
-        backgroundColor: "#f9f9f9",
-        paddingHorizontal: 10, // Keep content spacing inside the card
-        paddingBottom: 5,
-        borderRadius: 10,
-        width: "50%", // Keeps the card 50% of the parent width
-        shadowColor: "#000",
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.2,
-        shadowRadius: 2,
-        elevation: 2,
-        minHeight: 50,
-        flexGrow: 1, // Allows equal stretching
-        marginRight: 5, // Only add spacing to the right (not left)
-        overflow: "hidden",
-    },
-    cardText: {
-        fontSize: 8,
-        padding: 5,
-        fontWeight: "bold",
-        textAlign: "center",
-    },
-    cardText1: {
-        fontSize: 8,
-        fontWeight: "bold",
-        textAlign: "left",  // Ensures text aligns to the left
-        alignSelf: "flex-start",
-        padding: 5,
-    },
-    image1: {
-        width: "100%",  // Makes the image take the full width of its parent
-        height: 80,      // Keep the height fixed (adjust if needed)
-        borderRadius: 10,
-        alignSelf: "stretch", // Ensures it stretches fully inside the parent
-        resizeMode: "cover",  // Ensures the image covers the entire space
-    },
-
-    headerText: {
-        fontSize: 15,
-        fontWeight: "bold",
-        color: "black",
-    },
-    backButton: {
-        position: "absolute",
-        top: 3,
-        left: 10,
-        zIndex: 10,
-        backgroundColor: "#f0f0f0",
-        padding: 5,
-        borderRadius: 6,
-        elevation: 2,
-        shadowColor: "#000",
-        shadowOffset: { width: 1, height: 1 },
-        shadowOpacity: 0.2,
-        shadowRadius: 1,
-        marginRight: 10,
-    },
-    image: {
-        width: "100%",
-        height: 150,
-        borderRadius: 10,
-        marginBottom: 15,
-    },
-    infoContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 15,
-    },
-    descriptionTitle: {
-        fontSize: 10,
-        fontWeight: "bold",
-        marginBottom: 5,
-        marginTop: 7,
-    },
-    descriptionText: {
-        fontSize: 10,
-        color: "gray",
-        marginBottom: 15,
-    },
-    discountRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 4,
-    },
-    discountButton: {
-        backgroundColor: "white",
-        paddingHorizontal: 12,
-        paddingVertical: 4,
-        borderRadius: 6,
-        borderWidth: 2,
-        borderColor: "orange",
-    },
-    buttonText: {
-        color: "orange",
-        fontSize: 5,
-        fontWeight: "bold",
-    },
-    tagsContainer: {
-        flexDirection: "row", // Ensures buttons are in a row
-        alignItems: "center", // Align items vertically
-        justifyContent: "flex-start", // Aligns items to the left
-        width: "100%", // Ensures it spans the full width
-        gap: 6
-    },
-    tagButton: {
-        flexDirection: "row",
-        backgroundColor: "#D3D3D3",
-        paddingVertical: 4,
-        paddingHorizontal: 9,
-        borderRadius: 7,
-
-    },
-    tagText: {
-        color: "#3E4958",
-        marginLeft: 0,
-        fontSize: 5,
-    },
-    leftContainer: {
-        alignItems: "flex-start", // Ensures all content aligns to the left
-        flex: 1, // Allows it to take up remaining space
-    },
-
-    phoneRow: {
-        flexDirection: "row",
-        alignItems: "center", // Aligns icon and text vertically
-        justifyContent: "flex-start", // Ensures content sticks to the left
-        width: "100%", // Takes full width
-        gap: 2, // Adjust spacing between icon and text
-        
-    },
-    phoneRow1: {
-        flexDirection: "row", 
-        alignItems: "center", 
-        width: "100%",
-        marginLeft: 5, // Move slightly to the right
-        paddingLeft: 5, // Optional: Adjust if needed
-    },
-    
-    phoneContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginLeft: 10,
-    },
-    phoneText: {
-        fontSize: 4,
-        color: "#C2C2C2",
-        marginLeft: 0,
-        
-    },
-    priceContainer: {
-        alignItems: "center", // Aligns priceText and priceAmount in the center
-        marginTop: -14,
-    },
-    priceText: {
-        fontSize: 10,
-        color: "black",
-    },
-    priceAmount: {
-        fontWeight: "bold",
-        fontSize: 12,
-        color: "#000",
-    },
-    discountText: {
-        fontSize: 12,
-        fontWeight: "bold",
-        color: "black",
-        marginTop: 4, // Adds spacing below phone number
-        marginRight: 9,
-    },
-    locationRow: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 2, // Space below "Pasti Diskon"
-    },
-    locText: {
-        fontSize: 5,
-        color: "blue",
-        marginLeft: 4, // Space between icon and text
-    },
-    priceRow: {
-        flexDirection: "row",
-        justifyContent: "space-between", // Ensures text is on the left, button is on the right
-        alignItems: "center", // Align items vertically
-        width: "100%", // Ensures it takes full width
-        paddingHorizontal: 10, // Adds some spacing on the sides
-    },
-    
-
-    buyButton: {
-        backgroundColor: "orange", // Blue color
-        paddingVertical: 3,
-        paddingHorizontal: 10,
-        borderRadius: 5,
-    },
-
-    buttonText1: {
-        color: "white",
-        fontSize: 5,
-        fontWeight: "bold",
-    }
+  header: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    width: "100%",
+    height: verticalScale(60), // Fixed height for the header
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    zIndex: 100, // Ensure the header is above other content
+  },
+  backButton: {
+    position: "absolute",
+    left: moderateScale(10),
+    zIndex: 10,
+    backgroundColor: "#f0f0f0",
+    padding: moderateScale(5),
+    borderRadius: moderateScale(6),
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+  },
+  headerText: {
+    fontWeight: "bold",
+    color: "black",
+  },
+  scrollContent: {
+    paddingBottom: verticalScale(80), // Adjusted to prevent overlap with BottomBar
+  },
+  contentContainer: {
+    paddingHorizontal: moderateScale(15), // Adds padding to the left and right
+    paddingTop: verticalScale(70), // Adds padding to the top (below the header)
+  },
+  image: {
+    width: "100%",
+    borderRadius: moderateScale(10),
+    marginBottom: verticalScale(10),
+  },
+  phoneRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: verticalScale(10),
+  },
+  leftContainer: {
+    flex: 1,
+  },
+  phoneContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: verticalScale(5),
+  },
+  phoneText: {
+    color: "#C2C2C2",
+    marginLeft: moderateScale(5),
+  },
+  discountRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: verticalScale(5),
+  },
+  discountText: {
+    fontWeight: "bold",
+    color: "black",
+    marginRight: moderateScale(10),
+  },
+  discountButton: {
+    backgroundColor: "white",
+    paddingHorizontal: moderateScale(12),
+    paddingVertical: verticalScale(4),
+    borderRadius: moderateScale(6),
+    borderWidth: 2,
+    borderColor: "orange",
+  },
+  buttonText: {
+    color: "orange",
+    fontWeight: "bold",
+  },
+  locationRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  locText: {
+    color: "blue",
+    marginLeft: moderateScale(5),
+  },
+  priceContainer: {
+    alignItems: "flex-end",
+  },
+  priceText: {
+    color: "black",
+  },
+  priceAmount: {
+    fontWeight: "bold",
+    color: "#000",
+  },
+  descriptionTitle: {
+    fontWeight: "bold",
+    marginBottom: verticalScale(5),
+  },
+  descriptionText: {
+    color: "gray",
+    marginBottom: verticalScale(10),
+  },
+  tagsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: verticalScale(10),
+    gap: moderateScale(6),
+  },
+  tagButton: {
+    flexDirection: "row",
+    backgroundColor: "#D3D3D3",
+    paddingVertical: verticalScale(4),
+    paddingHorizontal: moderateScale(9),
+    borderRadius: moderateScale(7),
+  },
+  tagText: {
+    color: "#3E4958",
+  },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: verticalScale(10),
+  },
+  card: {
+    width: "48%",
+    backgroundColor: "#f9f9f9",
+    borderRadius: moderateScale(10),
+    padding: moderateScale(10),
+    shadowColor: "#000",
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  image1: {
+    width: "100%",
+    borderRadius: moderateScale(10),
+    marginBottom: verticalScale(5),
+  },
+  cardText: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: verticalScale(5),
+  },
+  phoneRow1: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: verticalScale(5),
+  },
+  priceRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  cardText1: {
+    fontWeight: "bold",
+  },
+  buyButton: {
+    backgroundColor: "orange",
+    paddingVertical: verticalScale(3),
+    paddingHorizontal: moderateScale(10),
+    borderRadius: moderateScale(5),
+  },
+  buttonText1: {
+    color: "white",
+    fontWeight: "bold",
+  },
 });
+
+export default PastiDiskon;

@@ -1,17 +1,24 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": false,
+    "strict": true, // Enable strict type-checking for better TypeScript support
+    "jsx": "react-native", // Ensure JSX is treated as React Native
+    "moduleResolution": "node", // Use Node.js-style module resolution
+    "baseUrl": ".", // Base directory for module resolution
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./*"] // Map @/ to the root directory
+    },
+    "esModuleInterop": true, // Enable ES module interop
+    "skipLibCheck": true, // Skip library checks for faster builds
+    "forceConsistentCasingInFileNames": true // Ensure consistent file naming
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules" // Exclude node_modules from type-checking
   ]
 }

@@ -5,52 +5,65 @@ import {
     TouchableOpacity,
     Modal,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    Dimensions,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Slider from "@react-native-community/slider"; // Ensure this package is installed
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
-const FilterModal = ({ visible, onClose }) => {
+const { width, height } = Dimensions.get("window");
+
+// Define the props interface
+interface FilterModalProps {
+    visible: boolean;
+    onClose: () => void;
+}
+
+const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose }) => {
     const [price, setPrice] = React.useState(50); // Default price
 
     return (
         <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>
             <View style={styles.modalOverlay}>
-                <View style={styles.modalContent}>
+                <View style={[styles.modalContent, { height: height * 0.8 }]}> {/* Adjust height based on screen size */}
                     {/* Header */}
                     <View style={styles.modalHeader}>
-                        <Text style={styles.modalTitle}>Filter</Text>
+                        <Text style={[styles.modalTitle, { fontSize: moderateScale(15) }]}>Filter</Text>
                         <TouchableOpacity onPress={onClose}>
-                            <Ionicons name="close" size={30} color="black" />
-                        </TouchableOpacity>
-                    </View>
-                    <Text style={styles.sectionTitle}>Category</Text>
-                    <View style={styles.buttonContainer1}>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText1}>Cars</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText1}>Events</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText1}>Luxuries</Text>
+                            <Ionicons name="close" size={moderateScale(30)} color="black" />
                         </TouchableOpacity>
                     </View>
 
-                    <ScrollView>
+                    {/* Category Section */}
+                    <Text style={[styles.sectionTitle, { fontSize: moderateScale(12) }]}>Category</Text>
+                    <View style={styles.buttonContainer1}>
+                        <TouchableOpacity style={styles.button}>
+                            <Text style={[styles.buttonText1, { fontSize: moderateScale(12) }]}>Cars</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button}>
+                            <Text style={[styles.buttonText1, { fontSize: moderateScale(12) }]}>Events</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button}>
+                            <Text style={[styles.buttonText1, { fontSize: moderateScale(12) }]}>Luxuries</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Scrollable Content */}
+                    <ScrollView contentContainerStyle={styles.scrollContent}>
                         {/* Language Section */}
-                        <Text style={styles.sectionTitle}>Language</Text>
+                        <Text style={[styles.sectionTitle, { fontSize: moderateScale(12) }]}>Language</Text>
                         <View style={styles.buttonContainer}>
                             {["English", "Spanish", "French", "German", "Hindi", "Chinese", "Japanese", "Korean", "Arabic", "Russian", "Italian"].map((lang, index) => (
                                 <TouchableOpacity key={index} style={styles.button}>
-                                    <Text style={styles.buttonText}>{lang}</Text>
+                                    <Text style={[styles.buttonText, { fontSize: moderateScale(12) }]}>{lang}</Text>
                                 </TouchableOpacity>
                             ))}
                         </View>
 
                         {/* Price Section */}
-                        <Text style={styles.sectionTitle}>Price</Text>
-                        <Text style={styles.priceText}>$0 - ${price}</Text>
+                        <Text style={[styles.sectionTitle, { fontSize: moderateScale(12) }]}>Price</Text>
+                        <Text style={[styles.priceText, { fontSize: moderateScale(14) }]}>$0 - ${price}</Text>
                         <Slider
                             style={styles.slider}
                             minimumValue={0}
@@ -62,25 +75,25 @@ const FilterModal = ({ visible, onClose }) => {
                             value={price}
                             onValueChange={setPrice}
                         />
-                        
 
                         {/* Sort By Section */}
-                        <Text style={styles.sectionTitle}>Sort By</Text>
+                        <Text style={[styles.sectionTitle, { fontSize: moderateScale(12) }]}>Sort By</Text>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.button}>
-                                <Text style={styles.buttonText}>Right to Left</Text>
+                                <Text style={[styles.buttonText, { fontSize: moderateScale(12) }]}>Right to Left</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button}>
-                                <Text style={styles.buttonText}>Left to Right</Text>
+                                <Text style={[styles.buttonText, { fontSize: moderateScale(12) }]}>Left to Right</Text>
                             </TouchableOpacity>
                         </View>
 
+                        {/* Reset and Apply Buttons */}
                         <View style={styles.buttonContainerReset}>
-                            <TouchableOpacity style={styles.buttonReset}>
-                                <Text style={styles.buttonTextReset}>Reset</Text>
+                            <TouchableOpacity style={[styles.buttonReset, { width: moderateScale(100), height: verticalScale(40) }]}>
+                                <Text style={[styles.buttonTextReset, { fontSize: moderateScale(14) }]}>Reset</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.buttonReset}>
-                                <Text style={styles.buttonTextReset}>Apply</Text>
+                            <TouchableOpacity style={[styles.buttonReset, { width: moderateScale(100), height: verticalScale(40) }]}>
+                                <Text style={[styles.buttonTextReset, { fontSize: moderateScale(14) }]}>Apply</Text>
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
@@ -89,8 +102,6 @@ const FilterModal = ({ visible, onClose }) => {
         </Modal>
     );
 };
-
-export default FilterModal;
 
 const styles = StyleSheet.create({
     modalOverlay: {
@@ -101,84 +112,83 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         width: "90%", // Adjust width for better fit
-        height: "75%", // Reduce height to avoid scrolling
         backgroundColor: "white",
-        borderRadius: 12,
-        padding: 15,
+        borderRadius: moderateScale(12), // Scaled border radius
+        padding: moderateScale(15), // Scaled padding
         alignItems: "center",
-        marginTop: 20, // Push modal to the top
+        marginTop: verticalScale(20), // Push modal to the top
+    },
+    scrollContent: {
+        flexGrow: 1, // Ensure the ScrollView content fills the available space
+        paddingBottom: verticalScale(10), // Reduced padding at the bottom
     },
     modalHeader: {
         flexDirection: "row",
         width: "100%",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 10,
+        marginBottom: verticalScale(10), // Scaled margin
     },
     modalTitle: {
-        fontSize: 15, 
         fontWeight: "bold",
     },
     sectionTitle: {
-        fontSize: 10, 
         fontWeight: "bold",
         alignSelf: "flex-start",
-        marginTop: 10,
+        marginTop: verticalScale(5), // Scaled margin
     },
     buttonContainer: {
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "flex-start",
-        marginTop: 5,
+        marginTop: verticalScale(3), // Scaled margin
     },
     buttonContainer1: {
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "flex-start",
-        marginTop: 5,
+        marginTop: verticalScale(5), // Scaled margin
         alignSelf: "flex-start",
     },
     button: {
         backgroundColor: "#eee",
-        paddingVertical: 2, // Reduce padding
-        paddingHorizontal: 2,
-        borderRadius: 6,
-        margin: 2,
+        paddingVertical: verticalScale(5), // Scaled padding
+        paddingHorizontal: moderateScale(5), // Scaled padding
+        borderRadius: moderateScale(6), // Scaled border radius
+        margin: moderateScale(5), // Scaled margin
     },
     buttonText: {
-        fontSize: 10, // Reduce font size for better fit
+        fontSize: moderateScale(7), // Scaled font size
     },
-    buttonText1:{
-        fontSize: 10,
+    buttonText1: {
+        fontSize: moderateScale(7), // Scaled font size
     },
     slider: {
         width: "100%",
-        marginTop: 5,
+        marginTop: verticalScale(3), // Scaled margin
     },
     priceText: {
-        fontSize: 13, 
         alignSelf: "flex-start",
-        marginTop: 5,
+        marginTop: verticalScale(5), // Scaled margin
         color: "orange",
     },
     buttonContainerReset: {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 20,
+        marginTop: verticalScale(20), // Scaled margin
     },
     buttonReset: {
-        width: 90, // Reduce width
-        height: 35, // Reduce height
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "orange",
-        borderRadius: 8,
-        marginHorizontal: 8,
+        borderRadius: moderateScale(8), // Scaled border radius
+        marginHorizontal: moderateScale(10), // Scaled margin
     },
     buttonTextReset: {
-        fontSize: 12, // Reduce font size
         fontWeight: "bold",
         color: "white",
     },
 });
+
+export default FilterModal;

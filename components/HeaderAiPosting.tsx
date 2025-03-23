@@ -22,8 +22,8 @@ const styles = StyleSheet.create( {
 
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: 30,
-        marginTop: 30,
+        marginBottom: 10,
+        marginTop: 0,
       },
       backButton: {
         position: "absolute",
@@ -41,7 +41,7 @@ const styles = StyleSheet.create( {
         marginRight: 10,
       },
       headerText: {
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: "bold",
         marginLeft: 10,
       },

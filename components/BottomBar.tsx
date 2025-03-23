@@ -3,8 +3,11 @@ import  { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import AIAssistantModal from "./AIAssistantModal";
+import PreviewPage from "@/app/AiCarListing";
+import { useRouter } from "expo-router";
 const BottomBar = () => {
    const [isModalVisible, setModalVisible] = useState(false);
+   const router = useRouter();
   return (
     <View style={styles.container}>
       {/* Home Icon */}
@@ -14,7 +17,7 @@ const BottomBar = () => {
       </TouchableOpacity>
 
       {/* Add Listing Icon */}
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push("/AiCarListing")}>
         <Ionicons name="add-circle-outline" size={20} color="black" />
         <Text style={styles.text}>Add Listing</Text>
       </TouchableOpacity>
